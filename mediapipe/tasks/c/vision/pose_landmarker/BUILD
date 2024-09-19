@@ -116,6 +116,19 @@ cc_test(
     ],
 )
 
+cc_binary(
+    name = "libpose_landmarker.dll",
+    linkopts = [],
+    linkshared = True,
+    tags = [
+        "manual",
+        "nobuilder",
+        "notap",
+    ],
+    deps = [":pose_landmarker_lib"],
+)
+
+
 # bazel build -c opt --linkopt -s --strip always --define MEDIAPIPE_DISABLE_GPU=1 \
 # //mediapipe/tasks/c/vision/pose_landmarker:libpose_landmarker.so
 cc_binary(

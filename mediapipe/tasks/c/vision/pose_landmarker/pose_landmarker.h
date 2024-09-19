@@ -23,7 +23,11 @@ limitations under the License.
 #include "mediapipe/tasks/c/vision/pose_landmarker/pose_landmarker_result.h"
 
 #ifndef MP_EXPORT
+#ifdef _MSC_VER
+#define MP_EXPORT __declspec(dllexport)
+#else
 #define MP_EXPORT __attribute__((visibility("default")))
+#endif  // _MSC_VER
 #endif  // MP_EXPORT
 
 #ifdef __cplusplus

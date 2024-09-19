@@ -42,11 +42,14 @@ void CppConvertToPoseLandmarkerResult(
           in.segmentation_masks.value()[i].GetImageFrameSharedPtr();
 
       MpMask mp_mask = {
-          .type = MpMask::IMAGE_FRAME,
-          .image_frame = {.mask_format = MaskFormat::FLOAT,
-                          .image_buffer = image_frame->PixelData(),
-                          .width = image_frame->Width(),
-                          .height = image_frame->Height()}};
+          MpMask::IMAGE_FRAME,
+          {
+              MaskFormat::FLOAT,
+              image_frame->PixelData(),
+              image_frame->Width(),
+              image_frame->Height()
+          }
+      };
       out->segmentation_masks[i] = mp_mask;
     }
   } else {

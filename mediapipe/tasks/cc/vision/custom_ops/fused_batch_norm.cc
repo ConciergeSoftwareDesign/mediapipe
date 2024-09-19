@@ -18,6 +18,7 @@ limitations under the License.
 #include <stddef.h>
 
 #include "Eigen/Core"
+
 #include "tensorflow/lite/c/common.h"
 #include "tensorflow/lite/kernels/internal/tensor_ctypes.h"
 #include "tensorflow/lite/kernels/kernel_util.h"

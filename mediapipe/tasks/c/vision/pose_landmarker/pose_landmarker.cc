@@ -109,12 +109,14 @@ PoseLandmarker* CppPoseLandmarkerCreate(const PoseLandmarkerOptions& options,
 
           const auto& image_frame = image.GetImageFrameSharedPtr();
           const MpImage mp_image = {
-              .type = MpImage::IMAGE_FRAME,
-              .image_frame = {
-                  .format = static_cast<::ImageFormat>(image_frame->Format()),
-                  .image_buffer = image_frame->PixelData(),
-                  .width = image_frame->Width(),
-                  .height = image_frame->Height()}};
+              MpImage::IMAGE_FRAME,
+              {
+                  static_cast<::ImageFormat>(image_frame->Format()),
+                  image_frame->PixelData(),
+                  image_frame->Width(),
+                  image_frame->Height()
+              }
+          };
 
           result_callback(&result, mp_image, timestamp,
                           /* error_msg= */ nullptr);

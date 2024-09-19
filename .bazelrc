@@ -1,4 +1,5 @@
 # The bazelrc file for MediaPipe OSS.
+startup --output_user_root=C:/tmp --windows_enable_symlinks
 
 # Tensorflow needs remote repo
 common --experimental_repo_remote_exec
@@ -23,6 +24,8 @@ build:windows --copt=/w
 # For using M_* math constants on Windows with MSVC.
 build:windows --copt=/D_USE_MATH_DEFINES
 build:windows --host_copt=/D_USE_MATH_DEFINES
+build:windows --copt=/Zc:__cplusplus
+build:windows --host_copt=/Zc:__cplusplus
 
 # macOS
 build:macos --cxxopt=-std=c++17
