@@ -121,6 +121,7 @@ absl::Status GlContext::CreateContextInternal(EGLContext share_context,
       // clang-format off
       EGL_RENDERABLE_TYPE, gl_version == 3 ? EGL_OPENGL_ES3_BIT_KHR
                                            : EGL_OPENGL_ES2_BIT,
+#ifndef MEDIAPIPE_EGL_SURFACELESS
       // Allow rendering to pixel buffers or directly to windows.
       EGL_SURFACE_TYPE,
 #ifdef MEDIAPIPE_OMIT_EGL_WINDOW_BIT
@@ -128,6 +129,7 @@ absl::Status GlContext::CreateContextInternal(EGLContext share_context,
 #else
       EGL_PBUFFER_BIT | EGL_WINDOW_BIT,
 #endif
+#endif // MEDIAPIPE_EGL_SURFACELESS
       EGL_RED_SIZE, 8,
       EGL_GREEN_SIZE, 8,
       EGL_BLUE_SIZE, 8,
@@ -188,12 +190,14 @@ absl::Status GlContext::CreateContext(EGLContext share_context) {
   }
   MP_RETURN_IF_ERROR(status);
 
+  #ifndef MEDIAPIPE_EGL_SURFACELESS
   EGLint pbuffer_attr[] = {EGL_WIDTH, 1, EGL_HEIGHT, 1, EGL_NONE};
 
   surface_ = eglCreatePbufferSurface(display_, config_, pbuffer_attr);
   RET_CHECK(surface_ != EGL_NO_SURFACE)
       << "eglCreatePbufferSurface() returned error " << std::showbase
       << std::hex << eglGetError();
+  #endif  // MEDIAPIPE_EGL_SURFACELESS
 
   return absl::OkStatus();
 }
